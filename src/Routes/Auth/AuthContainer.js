@@ -12,19 +12,19 @@ import { toast } from "react-toastify";
 
 export default () => {
   const [action, setAction] = useState("logIn");
+  const username = useInput("");
   const firstName = useInput("");
   const lastName = useInput("");
-  const email = useInput("");
   const secret = useInput("");
-
-  // Mutation
-  const [requestSecretMutation] = useMutation(LOG_IN, {
+  const email = useInput("");
+  const requestSecretMutation = useMutation(LOG_IN, {
     variables: { email: email.value }
   });
 
   const [createAccountMutation] = useMutation(CREATE_ACCOUNT, {
     variables: {
       email: email.value,
+      username: username.value,
       firstName: firstName.value,
       lastName: lastName.value
     }
@@ -64,6 +64,7 @@ export default () => {
     } else if (action === "signUp") {
       if (
         email.value !== "" &&
+        username.value !== "" &&
         firstName.value !== "" &&
         lastName.value !== ""
       ) {
@@ -108,6 +109,7 @@ export default () => {
     <AuthPresenter
       setAction={setAction}
       action={action}
+      username={username}
       firstName={firstName}
       lastName={lastName}
       email={email}
