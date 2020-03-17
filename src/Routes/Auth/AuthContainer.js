@@ -17,7 +17,7 @@ export default () => {
   const lastName = useInput("");
   const secret = useInput("");
   const email = useInput("");
-  const requestSecretMutation = useMutation(LOG_IN, {
+  const [requestSecretMutation] = useMutation(LOG_IN, {
     variables: { email: email.value }
   });
 
@@ -92,10 +92,8 @@ export default () => {
           } = await confirmSecretMutation();
           console.log(token);
           if (token !== "" && token !== undefined) {
-            console.log("aaa");
             localLogInMutation({ variables: { token } });
           } else {
-            console.log("bbb");
             throw Error();
           }
         } catch {
