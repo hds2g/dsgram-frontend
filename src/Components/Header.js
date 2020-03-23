@@ -78,7 +78,7 @@ export default withRouter(props => {
   const search = useInput("");
   const meResult = useQuery(ME);
   //console.log(meResult);
-  const { data, loading } = meResult;
+  const { data } = meResult;
   //console.log(loading);
   //if (loading) return "";
   //console.log(data);
@@ -98,7 +98,11 @@ export default withRouter(props => {
         </HeaderColumn>
         <HeaderColumn>
           <form onSubmit={onSearchSubmit}>
-            <SearchInput {...search} placeholder="Search" />
+            <SearchInput
+              value={search.value}
+              onChange={search.onChange}
+              placeholder="Search"
+            />
           </form>
         </HeaderColumn>
         <HeaderColumn>

@@ -30,18 +30,14 @@ const PostContainer = ({
     variables: { postId: id, text: comment.value }
   });
 
-  const slide = () => {
+  useEffect(() => {
     const totalFiles = files.length;
     if (currentItem === totalFiles - 1) {
       setTimeout(() => setCurrentItem(0), 3000);
     } else {
       setTimeout(() => setCurrentItem(currentItem + 1), 3000);
     }
-  };
-
-  useEffect(() => {
-    slide();
-  }, [currentItem]);
+  }, [currentItem, files]);
 
   const toggleLike = () => {
     toggleLikeMutation();
@@ -51,6 +47,15 @@ const PostContainer = ({
     } else {
       setIsLiked(true);
       setLikeCount(likeCountS + 1);
+    }
+  };
+
+  const onKeyPress = e => {
+    const { keyCode } = e;
+    console.log(keyCode);
+    if (keyCode === 13) {
+      comment.setValue("");
+      addCommentMutation();
     }
   };
   //console.log(files);
@@ -70,6 +75,7 @@ const PostContainer = ({
       setLikeCount={setLikeCount}
       currentItem={currentItem}
       toggleLike={toggleLike}
+      onKeyPress={onKeyPress}
     />
   );
 };
